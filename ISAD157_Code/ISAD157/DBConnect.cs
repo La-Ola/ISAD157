@@ -101,7 +101,28 @@ namespace ISAD157
                     dataGridView.DataSource = message;
                 }
             }
-        }
 
+            else if (comboBox.SelectedIndex == 3)
+            {
+                using (MySqlConnection connection =
+                    new MySqlConnection(toConnect))
+                {
+                    string educationQuery = "SELECT * FROM isad157_sskinner.education";
+
+                    connection.Open();
+
+                    MySqlCommand command =
+                        new MySqlCommand(educationQuery, connection);
+
+                    MySqlDataAdapter sqlDA =
+                        new MySqlDataAdapter(command);
+                    DataTable education =
+                        new DataTable();
+                    sqlDA.Fill(education);
+
+                    dataGridView.DataSource = education;
+                }
+            }
+        }
     }
 }
