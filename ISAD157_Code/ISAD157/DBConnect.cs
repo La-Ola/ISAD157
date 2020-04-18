@@ -79,6 +79,28 @@ namespace ISAD157
                     dataGridView.DataSource = friendship;
                 }
             }
+
+            else if (comboBox.SelectedIndex == 2)
+            {
+                using (MySqlConnection connection =
+                    new MySqlConnection(toConnect))
+                {
+                    string messageQuery = "SELECT * FROM isad157_sskinner.messages";
+
+                    connection.Open();
+
+                    MySqlCommand command =
+                        new MySqlCommand(messageQuery, connection);
+
+                    MySqlDataAdapter sqlDA =
+                        new MySqlDataAdapter(command);
+                    DataTable message =
+                        new DataTable();
+                    sqlDA.Fill(message);
+
+                    dataGridView.DataSource = message;
+                }
+            }
         }
 
     }
