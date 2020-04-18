@@ -17,6 +17,49 @@ namespace ISAD157
         {
             InitializeComponent();
         }
-        
+        //event listener for dropdown to be selected
+        private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            //toConnect = the string needed to acess the database within the server
+            string toConnect = "SERVER=" + Credentials.SERVER + ";" +
+                    "DATABASE=" + Credentials.DATABASE_NAME + ";" + "UID=" +
+                    Credentials.USER_NAME + ";" + "PASSWORD=" +
+                    Credentials.PASSWORD + ";" + "SslMode=" +
+                    Credentials.SslMode + ";";
+
+            //conditions for if the first option of drop down is selected
+            if (comboBox.SelectedIndex == 0)
+            {
+                //sets up the connection between here and the SQLdatabase
+                using (MySqlConnection connection =
+                    new MySqlConnection(toConnect))
+                {
+                    //this query selects all information held within the users table
+                    string userQuery = "SELECT * FROM isad157_sskinner.user";
+
+                    //opens connection allowing for data retreival
+                    connection.Open();
+
+                    //SQL query has been sent, ready for execution
+                    MySqlCommand command =
+                        new MySqlCommand(userQuery, connection);
+
+                    //MySQLAdapter is a set of commands that are used to fill a data set (and update it)
+                    MySqlDataAdapter sqlDA =
+                        new MySqlDataAdapter(command);
+                    DataTable user =
+                        new DataTable();
+                    sqlDA.Fill(user);
+
+                    //binds the user table the grid view
+                    dataGridView.DataSource = user;
+                    // end of user display.
+                }
+            }
+
+            
+        }
+
     }
 }
