@@ -58,7 +58,27 @@ namespace ISAD157
                 }
             }
 
-            
+            else if (comboBox.SelectedIndex == 1)
+            {
+                using (MySqlConnection connection =
+                    new MySqlConnection(toConnect))
+                {
+                    string friendQuery = "SELECT * FROM isad157_sskinner.friendships";
+
+                    connection.Open();
+
+                    MySqlCommand command =
+                        new MySqlCommand(friendQuery, connection);
+
+                    MySqlDataAdapter sqlDA =
+                        new MySqlDataAdapter(command);
+                    DataTable friendship =
+                        new DataTable();
+                    sqlDA.Fill(friendship);
+
+                    dataGridView.DataSource = friendship;
+                }
+            }
         }
 
     }
