@@ -123,6 +123,28 @@ namespace ISAD157
                     dataGridView.DataSource = education;
                 }
             }
+
+            else if (comboBox.SelectedIndex == 4)
+            {
+                using (MySqlConnection connection =
+                    new MySqlConnection(toConnect))
+                {
+                    string occupationQuery = "SELECT * FROM isad157_sskinner.occupation";
+
+                    connection.Open();
+
+                    MySqlCommand command =
+                        new MySqlCommand(occupationQuery, connection);
+
+                    MySqlDataAdapter sqlDA =
+                        new MySqlDataAdapter(command);
+                    DataTable occupation =
+                        new DataTable();
+                    sqlDA.Fill(occupation);
+
+                    dataGridView.DataSource = occupation;
+                }
+            }
         }
     }
 }
